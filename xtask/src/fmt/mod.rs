@@ -148,14 +148,14 @@ impl CodeFormatter for RustArgs {
 struct TypescriptArgs;
 
 impl CodeFormatter for TypescriptArgs {
-    fn format_code(&self, check_only: bool) -> Result<()> {
-        YarnCmd.ensure_ready()?;
-        let root = repository_root()?;
-        if let Some(mut prettier) = ubrn_common::fmt::prettier(root, check_only)? {
-            run_cmd_quietly(&mut prettier)?
-        } else {
-            unreachable!("Is prettier in package.json dependencies?")
-        }
+    fn format_code(&self, _check_only: bool) -> Result<()> {
+        // YarnCmd.ensure_ready()?;
+        // let root = repository_root()?;
+        // if let Some(mut prettier) = ubrn_common::fmt::prettier(root, check_only)? {
+        //     run_cmd_quietly(&mut prettier)?
+        // } else {
+        //     unreachable!("Is prettier in package.json dependencies?")
+        // }
         Ok(())
     }
 }

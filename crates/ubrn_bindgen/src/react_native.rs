@@ -54,7 +54,7 @@ impl ReactNativeBindingGenerator {
             ubrn_common::write_file(lowlevel_ts_path, lowlevel_ts)?;
         }
         if try_format_code {
-            gen_typescript::format_directory(out_dir)?;
+            // gen_typescript::format_directory(out_dir)?;
         }
         Ok(())
     }

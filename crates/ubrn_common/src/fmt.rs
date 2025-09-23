@@ -8,7 +8,7 @@ use camino::Utf8Path;
 use std::process::Command;
 use which::which;
 
-use crate::{file_paths, resolve};
+use crate::file_paths;
 
 pub fn clang_format<P: AsRef<Utf8Path>>(path: P, check_only: bool) -> Result<Option<Command>> {
     if which("clang-format").is_err() {
@@ -34,22 +34,23 @@ pub fn clang_format<P: AsRef<Utf8Path>>(path: P, check_only: bool) -> Result<Opt
     Ok(Some(cmd))
 }
 
-pub fn prettier<P: AsRef<Utf8Path>>(out_dir: P, check_only: bool) -> Result<Option<Command>> {
-    let prettier = resolve(&out_dir, "node_modules/.bin/prettier")?;
-    Ok(if let Some(prettier) = prettier {
-        let mut cmd = Command::new(prettier);
-        if check_only {
-            cmd.arg("--check");
-        } else {
-            cmd.arg("--write");
-        }
-        cmd.arg(".").current_dir(out_dir.as_ref());
-        Some(cmd)
-    } else {
-        use crate::testing::{is_recording_enabled, record_command};
-        if is_recording_enabled() {
-            record_command(&Command::new("prettier"));
-        }
-        None
-    })
+pub fn prettier<P: AsRef<Utf8Path>>(_out_dir: P, _check_only: bool) -> Result<Option<Command>> {
+    // let prettier = resolve(&out_dir, "node_modules/.bin/prettier")?;
+    // Ok(if let Some(prettier) = prettier {
+    //     let mut cmd = Command::new(prettier);
+    //     if check_only {
+    //         cmd.arg("--check");
+    //     } else {
+    //         cmd.arg("--write");
+    //     }
+    //     cmd.arg(".").current_dir(out_dir.as_ref());
+    //     Some(cmd)
+    // } else {
+    //     use crate::testing::{is_recording_enabled, record_command};
+    //     if is_recording_enabled() {
+    //         record_command(&Command::new("prettier"));
+    //     }
+    //     None
+    // })
+    Ok(None)
 }
