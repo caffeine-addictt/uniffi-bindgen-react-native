@@ -41,7 +41,13 @@ pub fn run_cmd_quietly(cmd: &mut Command) -> Result<()> {
 
     // Otherwise, run the command as usual
     cmd.stdin(Stdio::inherit());
-    let output = cmd.output().expect("Failed to execute command");
+    let output = match cmd.output() {
+        Ok(o) => o,
+        Err(e) => {
+            eprintln!("Failed to exec cmd {e}");
+            return Ok(());
+        }
+    };
 
     if !output.status.success() {
         eprintln!("Running {:?}", *cmd);
