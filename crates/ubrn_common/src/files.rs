@@ -25,7 +25,7 @@ fn resolve_from_canonical<P: AsRef<Utf8Path>>(
     file_suffix: &str,
 ) -> Result<Option<Utf8PathBuf>> {
     let full_path = path.as_ref().join(file_suffix);
-    if full_path.exists() {
+    if full_path.try_exists()? {
         Ok(Some(full_path))
     } else if let Some(parent) = path.as_ref().parent() {
         resolve_from_canonical(parent, file_suffix)
